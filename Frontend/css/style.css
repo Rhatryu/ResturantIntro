@@ -44,8 +44,8 @@ body {
 
 /* ---------- Hero 區塊 ---------- */
 .hero-section {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
-    color: white;
+    background: var(--bg-cream);
+    color: black;
     padding: 60px 0;
     text-align: center;
     margin-bottom: 40px;
@@ -113,6 +113,13 @@ body {
     cursor: pointer;
 }
 
+/* 使卡片為彈性容器：固定圖片區、高度一致、內容撐開並把按鈕推到底部 */
+.menu-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
 .menu-card:hover {
     transform: translateY(-8px);
     box-shadow: var(--shadow-hover);
@@ -121,8 +128,9 @@ body {
 /* 圖片容器 */
 .card-img-container {
     position: relative;
-    height: 200px;
+    height: 260px;
     overflow: hidden;
+    flex: 0 0 auto;
 }
 
 .card-img-container img {
@@ -198,6 +206,10 @@ body {
 /* 卡片內容 */
 .card-content {
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 130px; /* 保持卡片內容區高度一致 */
 }
 
 .card-content h3 {
@@ -217,6 +229,26 @@ body {
     color: var(--text-light);
     margin-bottom: 15px;
     line-height: 1.5;
+}
+
+/* 限制標題與描述行數，過長文字以省略號處理，避免撐開卡片 */
+.card-content h3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+}
+
+.card-content .description {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* 描述最多顯示 3 行（桌面），超出省略 */
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .card-content .price {
@@ -241,6 +273,12 @@ body {
     border: none;
     font-weight: bold;
     transition: var(--transition);
+}
+
+/* 將按鈕固定在卡片底部，並調整圓角只在下方 */
+.menu-card .add-to-cart-btn {
+    margin-top: auto;
+    border-radius: 0 0 15px 15px;
 }
 
 .add-to-cart-btn:hover {
