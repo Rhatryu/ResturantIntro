@@ -325,11 +325,11 @@
 
     <!-- 餐點資訊卡 -->
     <div class="info-card" id="info-card">
+        <button style="position:absolute;top:10px;right:15px;background:transparent;border:none;font-size:1.5rem;color:#d32f2f;cursor:pointer;z-index:1100;" onclick="hideInfoCard()" title="隱藏資訊卡">✕</button>
         <h2 id="card-name">餐點名稱</h2>
         <p class="jp-name" id="card-jp-name">日文名稱</p>
         <span class="price" id="card-price">NT$0</span>
         <p class="description" id="card-description">餐點介紹</p>
-        
         <!-- AI 對話區 -->
         <div class="chat-section">
             <h4>💬 詢問 AI 店長</h4>
@@ -345,6 +345,9 @@
             </div>
         </div>
     </div>
+
+    <!-- 顯示資訊卡按鈕（預設隱藏） -->
+    <button id="show-info-btn" style="display:none;position:fixed;bottom:120px;right:25px;z-index:1200;background:#d32f2f;color:white;border:none;padding:12px 22px;border-radius:25px;font-size:1.1rem;box-shadow:0 2px 8px rgba(0,0,0,0.15);cursor:pointer;">顯示資訊卡</button>
 
     <!-- 底部按鈕 -->
     <div class="bottom-actions">
@@ -559,12 +562,29 @@
         function closeHint() {
             document.getElementById('ar-hint').style.display = 'none';
         }
-        
+
         function showError(message) {
             document.getElementById('card-name').textContent = '錯誤';
             document.getElementById('card-description').textContent = message;
         }
-        
+
+        // 隱藏資訊卡
+        function hideInfoCard() {
+            document.getElementById('info-card').style.display = 'none';
+            document.getElementById('show-info-btn').style.display = 'block';
+        }
+
+        // 顯示資訊卡
+        function showInfoCard() {
+            document.getElementById('info-card').style.display = 'block';
+            document.getElementById('show-info-btn').style.display = 'none';
+        }
+
+        // 綁定顯示按鈕事件
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('show-info-btn').addEventListener('click', showInfoCard);
+        });
+
         // 語音合成 Voices 需要等待載入
         if ('speechSynthesis' in window) {
             speechSynthesis.onvoiceschanged = () => {
