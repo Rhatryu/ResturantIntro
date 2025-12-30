@@ -1,0 +1,150 @@
+{
+  "menu": [
+    {
+      "id": 1,
+      "name": "明太蛋拌烏龍麵",
+      "name_jp": "明太釜玉うどん",
+      "price": 150,
+      "description": "Q彈烏龍麵淋上濃郁蛋黃醬，搭配鮮美明太子，每一口都是幸福的滋味！",
+      "image": "/static/img/明太蛋拌烏龍麵.jpg",
+      "model_3d": "/static/models/明太蛋拌烏龍麵.glb",
+      "category": "招牌烏龍麵",
+      "is_popular": true,
+      "spicy_level": 1,
+      "ai_prompt": "這是我們的人氣招牌！明太子的鹹香配上滑嫩蛋黃，是初次來店的客人必點。記得提醒客人要趁熱拌勻享用！",
+      "nutrition": {
+        "calories": 450,
+        "protein": 18
+      }
+    },
+    {
+      "id": 2,
+      "name": "豆皮烏龍麵",
+      "name_jp": "きつねうどん",
+      "price": 130,
+      "description": "一大片吸滿鮮甜湯汁的日式豆皮，搭配清爽湯頭，簡單卻雋永的美味。",
+      "image": "/static/img/豆皮烏龍麵.jpg",
+      "model_3d": "/static/models/豆皮烏龍麵.glb",
+      "category": "湯烏龍麵",
+      "is_popular": true,
+      "spicy_level": 0,
+      "ai_prompt": "這道是經典中的經典！豆皮非常多汁，甜甜的味道大人小孩都喜歡。湯頭清爽不油膩。",
+      "nutrition": {
+        "calories": 420,
+        "protein": 14
+      }
+    },
+    {
+      "id": 3,
+      "name": "香辣豚骨烏龍麵",
+      "name_jp": "辛口豚骨うどん",
+      "price": 180,
+      "description": "濃郁熬製的豚骨湯頭，加入特製辣油與肉片，香辣過癮，暖胃首選！",
+      "image": "/static/img/香辣豚骨烏龍麵.jpg",
+      "model_3d": "/static/models/香辣豚骨烏龍麵.glb",
+      "category": "湯烏龍麵",
+      "is_popular": true,
+      "spicy_level": 3,
+      "ai_prompt": "喜歡重口味的客人必點！豚骨湯頭很濃郁，辣度大約是中辣，吃完會微微冒汗，非常過癮。",
+      "nutrition": {
+        "calories": 550,
+        "protein": 22
+      }
+    },
+    {
+      "id": 4,
+      "name": "牛肉烏龍麵",
+      "name_jp": "肉うどん",
+      "price": 170,
+      "description": "鮮嫩牛肉片鋪滿碗面，肉汁精華融入湯底，每一口都鮮美。",
+      "image": "/static/img/牛肉烏龍麵.jpg",
+      "model_3d": null,
+      "category": "湯烏龍麵",
+      "is_popular": false,
+      "spicy_level": 0,
+      "ai_prompt": "愛吃肉的客人選這道準沒錯！牛肉份量十足，湯頭因為融入了肉汁而更加鮮甜。",
+      "nutrition": {
+        "calories": 500,
+        "protein": 24
+      }
+    },
+    {
+      "id": 5,
+      "name": "釜揚烏龍麵",
+      "name_jp": "釜揚げうどん",
+      "price": 100,
+      "description": "直接從釜鍋撈起，不經冷水沖洗，保留麵條最原始的小麥香氣與滑順口感。",
+      "image": "/static/img/釜揚烏龍麵.jpg",
+      "model_3d": null,
+      "category": "乾拌烏龍麵",
+      "is_popular": false,
+      "spicy_level": 0,
+      "ai_prompt": "這是最能品嚐烏龍麵原味的吃法！沾著特製醬汁吃，能感受到麵條淡淡的鹹味和小麥香。",
+      "nutrition": {
+        "calories": 350,
+        "protein": 10
+      }
+    },
+    {
+      "id": 6,
+      "name": "溫玉濃湯烏龍麵",
+      "name_jp": "温玉ぶっかけうどん",
+      "price": 120,
+      "description": "濃郁的醬底搭配滑嫩溫泉蛋，拌開後蛋液包裹麵條，口感極佳。",
+      "image": "/static/img/溫玉濃湯烏龍麵.jpg",
+      "model_3d": null,
+      "category": "乾拌烏龍麵",
+      "is_popular": false,
+      "spicy_level": 0,
+      "ai_prompt": "溫泉蛋是靈魂！建議客人先把蛋戳破，讓蛋黃裹滿每一根麵條，口感會非常滑順濃郁。",
+      "nutrition": {
+        "calories": 400,
+        "protein": 15
+      }
+    }
+  ],
+  "sides": [
+    {
+      "id": 101,
+      "name": "海老天炸蝦",
+      "price": 60,
+      "description": "金黃酥脆的麵衣包裹著鮮甜蝦肉，經典必點炸物。",
+      "image": "/static/img/海老天炸蝦.jpg"
+    },
+    {
+      "id": 102,
+      "name": "炸蔬菜",
+      "price": 40,
+      "description": "洋蔥、紅蘿蔔等蔬菜絲炸成的蔬菜球，鮮甜酥脆。",
+      "image": "/static/img/炸蔬菜.jpg"
+    },
+    {
+      "id": 103,
+      "name": "天炸雞",
+      "price": 50,
+      "description": "日式唐揚炸雞，外皮酥脆多汁。",
+      "image": "/static/img/天炸雞.jpg"
+    },
+    {
+      "id": 104,
+      "name": "可樂餅",
+      "price": 35,
+      "description": "綿密馬鈴薯泥內餡，外酥內軟。",
+      "image": "/static/img/可樂餅.jpg"
+    },
+    {
+      "id": 105,
+      "name": "炸竹輪",
+      "price": 30,
+      "description": "Q彈竹輪裹上麵衣油炸，口感豐富。",
+      "image": "/static/img/炸竹輪.jpg"
+    }
+  ],
+  "store_info": {
+    "name": "丸龜製麵",
+    "name_jp": "丸亀製麺",
+    "slogan": "手打烏龍麵的堅持",
+    "opening_hours": "11:00 - 21:00",
+    "ai_personality": "你是丸龜製麵的熱情店長「丸子」，說話親切有活力，會用可愛的語助詞。你對烏龍麵充滿熱情，總是能說出每道餐點的故事和推薦吃法。"
+  }
+}
