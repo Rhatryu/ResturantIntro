@@ -37,15 +37,14 @@ pip install -r requirements.txt
 ### 2. 設定環境變數 (選用 - AI 功能)
 
 ```bash
-# Windows PowerShell
-$env:OPENROUTER_API_KEY = "your-api-key-here"
+# 建立 .env 檔案
+OPENROUTER_API_KEY=your-api-key-here
 ```
 
-### 3. 啟動後端伺服器
+### 3. 啟動伺服器
 
 ```bash
-cd Backend
-python main.py
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 ### 4. 訪問網站
@@ -59,8 +58,8 @@ python main.py
 1. 用電腦瀏覽主頁，Hover 餐點卡片看到 QR Code
 2. 手機掃描 QR Code 進入 AR 頁面
 3. 下載 [Hiro 標記](https://raw.githubusercontent.com/AR-js-org/AR.js/master/data/images/hiro.png)
-4. 將手機鏡頭對準標記，查看 3D 模型
-5. 與 AI 店長對話，直接加入購物車
+4. 將手機鏡頭對準 Hiro 標記，查看 3D 模型
+5. 觀看 3D 模型並與 AI 店長對話
 
 ## 技術棧
 
@@ -84,21 +83,19 @@ python main.py
 - [ ] HTTPS 部署 (ngrok)
 - [ ] 手機 RWD 優化
 
-## 詳細文件
-
-- [後端 README](Backend/README.md)
-- [前端 README](Frontend/README.md)
-
 ## 常見問題
 
 ### Q: AR 相機無法啟動？
 A: WebAR 需要 HTTPS。開發時可用 ngrok 產生 HTTPS URL。
 
 ### Q: AI 無法回覆？
-A: 確認已設定 `OPENROUTER_API_KEY` 環境變數。
+A: 請確認 `OPENROUTER_API_KEY` 已正確設定，並且帳戶有餘額。
 
 ### Q: 圖片無法顯示？
 A: 將餐點圖片放入 `Backend/static/img/` 並更新 `menu.json` 路徑。
+
+### Q: 3D 模型沒有顯示？
+A: 確認模型路徑正確，格式為 `.glb`，且檔案能透過瀏覽器直接存取。
 
 ## 授權
 

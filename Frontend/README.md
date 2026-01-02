@@ -1,6 +1,6 @@
 # 丸龜製麵 - 前端
 
-## 📁 目錄結構
+## 目錄結構
 
 ```
 Frontend/
@@ -12,28 +12,7 @@ Frontend/
     └── main.js          # 購物車與互動邏輯
 ```
 
-## 🚀 開發方式
-
-### 方式一：透過後端伺服器 (推薦)
-
-```bash
-# 在 Backend 目錄啟動 FastAPI
-cd Backend
-python main.py
-```
-
-然後訪問：http://localhost:8000
-
-### 方式二：直接開啟 HTML (功能受限)
-
-直接用瀏覽器開啟 `index.html`，但：
-- ❌ API 呼叫會失敗 (CORS)
-- ❌ 購物車功能無法運作
-- ❌ AR 功能無法使用
-
-**建議使用方式一！**
-
-## 🎨 技術棧
+## 技術棧
 
 - **框架**: Bootstrap 5
 - **圖示**: Bootstrap Icons
@@ -41,13 +20,13 @@ python main.py
 - **AR**: A-Frame + AR.js
 - **語音**: Web Speech API
 
-## 📱 響應式設計
+## 響應式設計
 
 - 桌面版: Grid 佈局 + Hover QR Code
 - 平板版: 2 欄 Grid
 - 手機版: 單欄 + Modal 點擊
 
-## 🔗 與後端整合
+## 與後端整合
 
 前端透過 `fetch()` 呼叫後端 API：
 
