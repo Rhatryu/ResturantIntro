@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>丸龜製麵 AR 體驗</title>
+    
+    <!-- A-Frame -->
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    
+    <!-- AR.js -->
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            overflow: hidden;
+        }
+        
+        /* 頂部資訊列 */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
+            color: white;
+            padding: 15px 20px;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .top-bar h1 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+        
+        .back-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            text-decoration: none;
+        }
+        
+        /* 餐點資訊卡 */
+        .info-card {
+            position: fixed;
+            bottom: 100px;
+            left: 20px;
+            right: 20px;
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            z-index: 1000;
+            max-height: 40vh;
+            overflow-y: auto;
+        }
+        
+        .info-card h2 {
+            color: #d32f2f;
+            margin-bottom: 5px;
+            font-size: 1.4rem;
+        }
+        
+        .info-card .jp-name {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .info-card .price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #d32f2f;
+        }
+        
+        .info-card .description {
+            color: #333;
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        
+        /* AI 對話區 */
+        .chat-section {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .chat-section h4 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+        
+        .ai-message {
+            background: #f5f5f5;
+            padding: 12px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .chat-input-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .chat-input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        .chat-input:focus {
+            border-color: #d32f2f;
+        }
+        
+        .chat-send-btn {
+            background: #d32f2f;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .chat-send-btn:disabled {
+            background: #ccc;
+        }
+        
+        /* 底部按鈕 */
+        .bottom-actions {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+        
+        .action-btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .order-btn {
+            background: #d32f2f;
+            color: white;
+        }
+        
+        .speak-btn {
+            background: #667eea;
+            color: white;
+        }
+        
+        /* 提示畫面 */
+        .ar-hint {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            z-index: 999;
+        }
+        
+        .ar-hint img {
+            width: 150px;
+            margin-bottom: 15px;
+            border: 3px solid white;
+        }
+        
+        .ar-hint p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+        
+        .ar-hint .close-hint {
+            background: #d32f2f;
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        
+        /* 載入動畫 */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #d32f2f;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            color: white;
+        }
+        
+        .loading-overlay.hidden {
+            display: none;
+        }
+        
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* 隱藏 A-Frame 標誌 */
+        .a-enter-vr {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- 載入畫面 -->
+    <div class="loading-overlay" id="loading">
+        <div class="loader"></div>
+        <p style="margin-top: 20px; font-size: 1.2rem;">🍜 準備 AR 體驗中...</p>
+    </div>
+
+    <!-- AR 提示畫面 -->
+    <div class="ar-hint" id="ar-hint" style="display: none;">
+        <img src="https://raw.githubusercontent.com/AR-js-org/AR.js/master/data/images/hiro.png" alt="Hiro Marker">
+        <p>請將手機對準 Hiro 標記<br>即可看到 3D 模型</p>
+        <p style="font-size: 0.9rem; color: #ccc;">沒有標記？點擊下方按鈕下載</p>
+        <a href="https://raw.githubusercontent.com/AR-js-org/AR.js/master/data/images/hiro.png" 
+           download="hiro-marker.png"
+           style="color: #ffb300; display: block; margin-bottom: 15px;">
+            📥 下載 Hiro 標記
+        </a>
+        <button class="close-hint" onclick="closeHint()">開始體驗</button>
+    </div>
+
+    <!-- 頂部資訊列 -->
+    <div class="top-bar">
+        <h1 id="dish-name">🍜 載入中...</h1>
+        <a href="/" class="back-btn">← 返回菜單</a>
+    </div>
+
+    <!-- A-Frame AR 場景 -->
+    <a-scene
+        embedded
+        arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;"
+        vr-mode-ui="enabled: false"
+        renderer="logarithmicDepthBuffer: true; precision: medium;">
+        
+        <!-- 資源預載 -->
+        <a-assets>
+            <a-asset-item id="noodle-model" src=""></a-asset-item>
+        </a-assets>
+        
+        <!-- Hiro 標記 -->
+        <a-marker preset="hiro" id="ar-marker">
+            <!-- 3D 模型容器 -->
+            <a-entity
+                id="model-container"
+                position="0 0.5 0"
+                scale="0.5 0.5 0.5"
+                animation="property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear;">
+                
+                <!-- 預設顯示文字，載入模型後會替換 -->
+                <a-text 
+                    id="placeholder-text"
+                    value="🍜"
+                    align="center"
+                    scale="3 3 3"
+                    position="0 0 0">
+                </a-text>
+                
+            </a-entity>
+            
+            <!-- 光源 -->
+            <a-light type="ambient" color="#ffffff" intensity="0.8"></a-light>
+            <a-light type="directional" color="#ffffff" intensity="0.6" position="1 1 1"></a-light>
+        </a-marker>
+        
+        <!-- 相機 -->
+        <a-entity camera></a-entity>
+    </a-scene>
+
+    <!-- 餐點資訊卡 -->
+    <div class="info-card" id="info-card">
+        <button style="position:absolute;top:10px;right:15px;background:transparent;border:none;font-size:1.5rem;color:#d32f2f;cursor:pointer;z-index:1100;" onclick="hideInfoCard()" title="隱藏資訊卡">✕</button>
+        <h2 id="card-name">餐點名稱</h2>
+        <p class="jp-name" id="card-jp-name">日文名稱</p>
+        <span class="price" id="card-price">NT$0</span>
+        <p class="description" id="card-description">餐點介紹</p>
+        <!-- AI 對話區 -->
+        <div class="chat-section">
+            <h4>💬 詢問 AI 店長</h4>
+            <div class="ai-message" id="ai-message">
+                歡迎！我是丸龜製麵的 AI 店長「丸子」🍜 有任何問題都可以問我喔！
+            </div>
+            <div class="chat-input-group">
+                <input type="text" class="chat-input" id="chat-input" 
+                       placeholder="例如：這道菜辣嗎？">
+                <button class="chat-send-btn" id="chat-send-btn" onclick="sendChat()">
+                    發送
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 顯示資訊卡按鈕（預設隱藏） -->
+    <button id="show-info-btn" style="display:none;position:fixed;bottom:120px;right:25px;z-index:1200;background:#d32f2f;color:white;border:none;padding:12px 22px;border-radius:25px;font-size:1.1rem;box-shadow:0 2px 8px rgba(0,0,0,0.15);cursor:pointer;">顯示資訊卡</button>
+
+    <!-- 底部按鈕 -->
+    <div class="bottom-actions">
+        <button class="action-btn speak-btn" id="speak-btn" onclick="speakAIMessage()">
+            🔊 語音朗讀
+        </button>
+        <button class="action-btn order-btn" id="order-btn" onclick="addToOrder()">
+            🛒 加入點餐
+        </button>
+    </div>
+
+    <script>
+        // ============== 全域變數 ==============
+        let currentDish = null;
+        let menuId = null;
+        
+        // ============== 初始化 ==============
+        document.addEventListener('DOMContentLoaded', () => {
+            // 從 URL 取得餐點 ID
+            const urlParams = new URLSearchParams(window.location.search);
+            menuId = urlParams.get('id') || 1;
+            
+            // 載入餐點資料
+            loadDishData(menuId);
+            
+            // 監聽 Enter 鍵送出對話
+            document.getElementById('chat-input').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') sendChat();
+            });
+            
+            // 監聽 AR 標記偵測
+            const marker = document.getElementById('ar-marker');
+            marker.addEventListener('markerFound', () => {
+                console.log('AR 標記偵測到！');
+            });
+            marker.addEventListener('markerLost', () => {
+                console.log('AR 標記遺失');
+            });
+        });
+        
+        // ============== 載入餐點資料 ==============
+        async function loadDishData(id) {
+            try {
+                const response = await fetch(`/api/menu/${id}`);
+                const result = await response.json();
+                
+                if (result.success) {
+                    currentDish = result.data;
+                    updateUI(currentDish);
+                    load3DModel(currentDish.model_3d);
+                } else {
+                    showError('找不到這道餐點');
+                }
+            } catch (error) {
+                console.error('載入失敗:', error);
+                showError('網路錯誤，請重試');
+            } finally {
+                // 隱藏載入畫面，顯示提示
+                setTimeout(() => {
+                    document.getElementById('loading').classList.add('hidden');
+                    document.getElementById('ar-hint').style.display = 'block';
+                }, 1500);
+            }
+        }
+        
+        // ============== 更新 UI ==============
+        function updateUI(dish) {
+            document.getElementById('dish-name').textContent = `🍜 ${dish.name}`;
+            document.getElementById('card-name').textContent = dish.name;
+            document.getElementById('card-jp-name').textContent = dish.name_jp || '';
+            document.getElementById('card-price').textContent = `NT$${dish.price}`;
+            document.getElementById('card-description').textContent = dish.description;
+            
+            // 更新頁面標題
+            document.title = `${dish.name} - AR 體驗 | 丸龜製麵`;
+        }
+        
+        // ============== 載入 3D 模型 ==============
+        function load3DModel(modelPath) {
+            if (!modelPath) {
+                console.log('沒有 3D 模型，使用預設顯示');
+                return;
+            }
+            
+            const container = document.getElementById('model-container');
+            const placeholder = document.getElementById('placeholder-text');
+            
+            // 移除預設文字
+            if (placeholder) placeholder.remove();
+            
+            // 建立 3D 模型實體
+            const modelEntity = document.createElement('a-entity');
+            modelEntity.setAttribute('gltf-model', modelPath);
+            modelEntity.setAttribute('scale', '1 1 1');
+            modelEntity.setAttribute('position', '0 0 0');
+            
+            container.appendChild(modelEntity);
+        }
+        
+        // ============== AI 對話 ==============
+        async function sendChat() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            const sendBtn = document.getElementById('chat-send-btn');
+            const aiMessageEl = document.getElementById('ai-message');
+            
+            if (!message) return;
+            
+            // 清空輸入並禁用按鈕
+            input.value = '';
+            sendBtn.disabled = true;
+            sendBtn.textContent = '思考中...';
+            aiMessageEl.textContent = '🤔 讓我想想...';
+            
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        menu_id: parseInt(menuId)
+                    })
+                });
+                
+                const result = await response.json();
+                aiMessageEl.textContent = result.reply;
+                
+            } catch (error) {
+                console.error('AI 對話錯誤:', error);
+                aiMessageEl.textContent = '哎呀，網路好像不太穩定，請再試一次！';
+            } finally {
+                sendBtn.disabled = false;
+                sendBtn.textContent = '發送';
+            }
+        }
+        
+        // ============== 語音朗讀 ==============
+        function speakAIMessage() {
+            const message = document.getElementById('ai-message').textContent;
+            
+            if ('speechSynthesis' in window) {
+                // 停止之前的朗讀
+                window.speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(message);
+                utterance.lang = 'zh-TW';
+                utterance.rate = 0.9;
+                utterance.pitch = 1.1;
+                
+                // 嘗試使用中文語音
+                const voices = window.speechSynthesis.getVoices();
+                const chineseVoice = voices.find(v => v.lang.includes('zh'));
+                if (chineseVoice) utterance.voice = chineseVoice;
+                
+                window.speechSynthesis.speak(utterance);
+                
+                // 更新按鈕狀態
+                const speakBtn = document.getElementById('speak-btn');
+                speakBtn.textContent = '🔊 朗讀中...';
+                utterance.onend = () => {
+                    speakBtn.textContent = '🔊 語音朗讀';
+                };
+            } else {
+                alert('您的瀏覽器不支援語音功能');
+            }
+        }
+        
+        // ============== 加入點餐 ==============
+        function addToOrder() {
+            if (!currentDish) return;
+            
+            // 從 localStorage 讀取購物車
+            let cart = JSON.parse(localStorage.getItem('marugame_cart') || '[]');
+            
+            // 檢查是否已存在
+            const existing = cart.find(item => item.id === currentDish.id);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({
+                    id: currentDish.id,
+                    name: currentDish.name,
+                    price: currentDish.price,
+                    quantity: 1
+                });
+            }
+            
+            // 儲存
+            localStorage.setItem('marugame_cart', JSON.stringify(cart));
+            
+            // 回饋
+            const orderBtn = document.getElementById('order-btn');
+            orderBtn.textContent = '✅ 已加入！';
+            orderBtn.style.background = '#4caf50';
+            
+            setTimeout(() => {
+                orderBtn.textContent = '🛒 加入點餐';
+                orderBtn.style.background = '#d32f2f';
+            }, 2000);
+            
+            // 詢問是否返回菜單
+            setTimeout(() => {
+                if (confirm(`已將「${currentDish.name}」加入購物車！\n要返回菜單繼續點餐嗎？`)) {
+                    window.location.href = '/';
+                }
+            }, 500);
+        }
+        
+        // ============== 工具函數 ==============
+        function closeHint() {
+            document.getElementById('ar-hint').style.display = 'none';
+        }
+
+        function showError(message) {
+            document.getElementById('card-name').textContent = '錯誤';
+            document.getElementById('card-description').textContent = message;
+        }
+
+        // 隱藏資訊卡
+        function hideInfoCard() {
+            document.getElementById('info-card').style.display = 'none';
+            document.getElementById('show-info-btn').style.display = 'block';
+        }
+
+        // 顯示資訊卡
+        function showInfoCard() {
+            document.getElementById('info-card').style.display = 'block';
+            document.getElementById('show-info-btn').style.display = 'none';
+        }
+
+        // 綁定顯示按鈕事件
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('show-info-btn').addEventListener('click', showInfoCard);
+        });
+
+        // 語音合成 Voices 需要等待載入
+        if ('speechSynthesis' in window) {
+            speechSynthesis.onvoiceschanged = () => {
+                console.log('語音已載入');
+            };
+        }
+    </script>
+</body>
+</html>

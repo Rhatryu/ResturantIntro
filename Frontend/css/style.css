@@ -1,0 +1,448 @@
+/* ============================================
+   丸龜製麵 - 主樣式表
+   ============================================ */
+
+/* ---------- CSS 變數 ---------- */
+:root {
+    --primary-color: #d32f2f;      /* 丸龜紅 */
+    --primary-dark: #b71c1c;
+    --secondary-color: #ffb300;    /* 金黃色 */
+    --bg-cream: #fef9e7;           /* 奶油白背景 */
+    --text-dark: #2d2d2d;
+    --text-light: #666;
+    --shadow: 0 4px 15px rgba(0,0,0,0.1);
+    --shadow-hover: 0 8px 25px rgba(0,0,0,0.15);
+    --transition: all 0.3s ease;
+}
+
+/* ---------- 全域樣式 ---------- */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+    background-color: var(--bg-cream);
+    color: var(--text-dark);
+    padding-bottom: 100px; /* 為底部點餐列留空間 */
+}
+
+/* ---------- 頂部導覽 ---------- */
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.navbar-brand img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.nav-link {
+    font-weight: 500;
+}
+
+/* ---------- Hero 區塊 ---------- */
+.hero-section {
+    background: var(--bg-cream);
+    color: black;
+    padding: 60px 0;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.hero-section h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+.hero-section .badge {
+    font-size: 1rem;
+    padding: 10px 20px;
+    margin-top: 20px;
+}
+
+/* ---------- 分類標籤 ---------- */
+.category-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.category-tab {
+    padding: 10px 25px;
+    border: 2px solid var(--primary-color);
+    border-radius: 25px;
+    background: white;
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 500;
+}
+
+.category-tab:hover,
+.category-tab.active {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* ---------- 餐點卡片 Grid ---------- */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 0 15px;
+}
+
+/* ---------- 餐點卡片 ---------- */
+.menu-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    position: relative;
+    cursor: pointer;
+}
+
+/* 使卡片為彈性容器：固定圖片區、高度一致、內容撐開並把按鈕推到底部 */
+.menu-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.menu-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* 圖片容器 */
+.card-img-container {
+    position: relative;
+    height: 260px;
+    overflow: hidden;
+    flex: 0 0 auto;
+}
+
+.card-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.menu-card:hover .card-img-container img {
+    transform: scale(1.1);
+}
+
+/* ⭐ QR Code Overlay - Hover 才顯示 */
+.qr-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.menu-card:hover .qr-overlay {
+    opacity: 1;
+}
+
+.qr-overlay img {
+    width: 120px;
+    height: 120px;
+    background: white;
+    padding: 8px;
+    border-radius: 10px;
+}
+
+.qr-overlay p {
+    color: white;
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+
+.qr-overlay .ar-btn {
+    margin-top: 15px;
+    padding: 8px 20px;
+    background: var(--secondary-color);
+    color: var(--text-dark);
+    border: none;
+    border-radius: 20px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* 人氣標籤 */
+.popular-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--secondary-color);
+    color: var(--text-dark);
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    z-index: 10;
+}
+
+/* 卡片內容 */
+.card-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 130px; /* 保持卡片內容區高度一致 */
+}
+
+.card-content h3 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.card-content .jp-name {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 10px;
+}
+
+.card-content .description {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+/* 限制標題與描述行數，過長文字以省略號處理，避免撐開卡片 */
+.card-content h3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+}
+
+.card-content .description {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* 描述最多顯示 3 行（桌面），超出省略 */
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-content .price {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* 辣度指示 */
+.spicy-level {
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 1rem;
+}
+
+/* 加入購物車按鈕 */
+.add-to-cart-btn {
+    width: 100%;
+    padding: 12px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    font-weight: bold;
+    transition: var(--transition);
+}
+
+/* 將按鈕固定在卡片底部，並調整圓角只在下方 */
+.menu-card .add-to-cart-btn {
+    margin-top: auto;
+    border-radius: 0 0 15px 15px;
+}
+
+.add-to-cart-btn:hover {
+    background: var(--primary-dark);
+}
+
+/* ---------- 底部點餐列 (Sticky Footer) ---------- */
+.order-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+}
+
+.order-bar .cart-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.order-bar .cart-icon {
+    position: relative;
+    font-size: 1.8rem;
+    color: var(--primary-color);
+}
+
+.order-bar .cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: var(--secondary-color);
+    color: var(--text-dark);
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    font-size: 0.8rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.order-bar .cart-total {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.order-bar .checkout-btn {
+    padding: 12px 40px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: var(--transition);
+}
+
+.order-bar .checkout-btn:hover {
+    background: var(--primary-dark);
+    transform: scale(1.05);
+}
+
+.order-bar .checkout-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ---------- 響應式設計 ---------- */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 1.8rem;
+    }
+    
+    .hero-section p {
+        font-size: 1rem;
+    }
+    
+    .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    
+    .card-img-container {
+        height: 150px;
+    }
+    
+    .card-content {
+        padding: 12px;
+    }
+    
+    .card-content h3 {
+        font-size: 1rem;
+    }
+    
+    .card-content .description {
+        display: none; /* 手機版隱藏描述 */
+    }
+    
+    /* 手機版不顯示 Hover QR，改用點擊 */
+    .qr-overlay {
+        display: none !important;
+    }
+    
+    .order-bar {
+        padding: 10px 15px;
+    }
+    
+    .order-bar .checkout-btn {
+        padding: 10px 25px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ---------- 載入動畫 ---------- */
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* ---------- 提示訊息 ---------- */
+.toast-container {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    z-index: 1100;
+}
+
+.custom-toast {
+    background: var(--primary-color);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
