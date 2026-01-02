@@ -149,28 +149,25 @@ async def chat_with_ai(chat: ChatMessage):
     menu_data = load_menu()
     store_info = menu_data["store_info"]
     
-    # 建立 System Prompt
-    system_prompt = f"""
-{store_info['ai_personality']}
-
-【店舖資訊】
-- 店名：{store_info['name']} ({store_info['name_jp']})
-- 標語：{store_info['slogan']}
-- 營業時間：{store_info['opening_hours']}
-
-【回覆規則】
-1. 保持熱情友善，語氣親切
-2. 回覆要簡潔有力，不要太長
-3. 可以適當使用表情符號增加親切感
-4. 如果客人問到特定餐點，要提供具體的推薦理由
-5. 用繁體中文回覆
-"""
+    # 讀取 System Prompt 模板
+    with open("./system_prompt.txt", "r", encoding="utf-8") as f:
+        system_prompt_template = f.read()
+    
+    # 替換店舖資訊
+    system_prompt = system_prompt_template.format(
+        ai_personality=store_info['ai_personality'],
+        store_name=store_info['name'],
+        store_name_jp=store_info['name_jp'],
+        slogan=store_info['slogan'],
+        opening_hours=store_info['opening_hours'],
+        menu_info=""
+    )
     
     # 如果有指定餐點 ID，加入該餐點資訊
     if chat.menu_id:
         for item in menu_data["menu"]:
             if item["id"] == chat.menu_id:
-                system_prompt += f"""
+                menu_info = f"""
 
 【目前客人正在看的餐點】
 - 名稱：{item['name']} ({item['name_jp']})
@@ -179,6 +176,14 @@ async def chat_with_ai(chat: ChatMessage):
 - 店長小提示：{item['ai_prompt']}
 - 辣度：{'🌶️' * item['spicy_level'] if item['spicy_level'] > 0 else '不辣'}
 """
+                system_prompt = system_prompt_template.format(
+                    ai_personality=store_info['ai_personality'],
+                    store_name=store_info['name'],
+                    store_name_jp=store_info['name_jp'],
+                    slogan=store_info['slogan'],
+                    opening_hours=store_info['opening_hours'],
+                    menu_info=menu_info
+                )
                 break
     
     # 呼叫 OpenRouter API
