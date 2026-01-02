@@ -12,8 +12,10 @@ from typing import Optional
 import json
 import os
 import httpx
+from dotenv import load_dotenv
 
 # ============== 初始化 ==============
+load_dotenv()
 app = FastAPI(
     title="丸龜製麵 API",
     description="AI 虛擬導覽與沉浸式點餐系統後端",
@@ -137,8 +139,8 @@ async def get_popular_items():
 
 # ---------- AI 聊天 API ----------
 
-# OpenRouter API 設定
-OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "your-api-key-here")
+# OpenRouter API 設定 (dotenv 讀取)
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 
 @app.post("/api/chat")
