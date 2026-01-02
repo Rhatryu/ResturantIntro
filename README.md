@@ -73,16 +73,6 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 - **A-Frame + AR.js**: WebAR
 - **Web Speech API**: 語音合成
 
-## 開發進度 (僅參考)
-
-- [x] 後端 API 與資料庫
-- [x] 前端 Grid 佈局與 Hover 特效
-- [x] WebAR 體驗頁面
-- [x] AI 店長整合
-- [ ] 實際餐點圖片與 3D 模型
-- [ ] HTTPS 部署 (ngrok)
-- [ ] 手機 RWD 優化
-
 ## 常見問題
 
 ### Q: AR 相機無法啟動？
