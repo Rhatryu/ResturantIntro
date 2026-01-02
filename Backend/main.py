@@ -191,7 +191,7 @@ async def chat_with_ai(chat: ChatMessage):
                     "Content-Type": "application/json",
                 },
                 json={
-                    "model": "meta-llama/llama-3.3-70b-instruct",
+                    "model": "meta-llama/llama-3.3-70b-instruct:free",
                     "messages": [
                         {"role": "system", "content": system_prompt},
                         {"role": "user", "content": chat.message}
