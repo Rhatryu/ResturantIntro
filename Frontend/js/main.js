@@ -50,9 +50,6 @@ function renderMenuGrid(items) {
     if (!grid) return;
     
     grid.innerHTML = items.map(item => createMenuCard(item)).join('');
-    
-    // 綁定事件
-    bindCardEvents();
 }
 
 /**
@@ -366,52 +363,6 @@ function filterCategory(category) {
     }
 }
 
-// ============== 通用 Modal 處理 ==============
-/**
- * 綁定卡片點擊事件（通用）
- */
-function bindCardEvents() {
-    document.querySelectorAll('.menu-card').forEach(card => {
-        card.addEventListener('click', (e) => {
-            // 如果點的是按鈕，不觸發
-            if (e.target.classList.contains('add-to-cart-btn')) return;
-            const itemId = parseInt(card.dataset.id);
-            showItemModal(itemId);
-        });
-    });
-}
-
-/**
- * 顯示通用 Modal（取代手機/桌面版）
- */
-function showItemModal(itemId) {
-    const item = menuData.find(i => i.id === itemId);
-    if (!item) return;
-    const modalBody = document.getElementById('cart-modal-body');
-    const modalTitle = document.querySelector('#cart-modal .modal-title');
-    if (modalTitle) modalTitle.textContent = item.name;
-    if (modalBody) {
-        const arUrl = `${window.location.origin}/ar?id=${item.id}`;
-        modalBody.innerHTML = `
-            <img src="${item.image}" alt="${item.name}" 
-                 onerror="this.src='/static/img/placeholder.jpg'">
-            <p class="jp-name text-muted">${item.name_jp || ''}</p>
-            <p>${item.description}</p>
-            <p class="fs-4 fw-bold text-danger">NT$${item.price}</p>
-            <p class="spicy-level">${'🌶️'.repeat(item.spicy_level || 0)}</p>
-            <a href="${arUrl}" class="ar-enter-btn d-block text-center text-decoration-none">
-                🥽 進入 AR 體驗
-            </a>
-            <button class="btn btn-danger w-100 mt-3" onclick="addToCart(${item.id}); bootstrap.Modal.getInstance(document.getElementById('cart-modal')).hide();">
-                🛒 加入點餐
-            </button>
-        `;
-    }
-    // 顯示 Modal
-    const modal = new bootstrap.Modal(document.getElementById('cart-modal'));
-    modal.show();
-}
-
 // ============== 工具函數 ==============
 
 /**
@@ -469,8 +420,3 @@ function showToast(message, type = 'success') {
 
 // ============== 初始化載入購物車 ==============
 loadCart();
-
-// 監聽視窗大小變化，重新綁定事件
-window.addEventListener('resize', () => {
-    bindCardEvents();
-});
