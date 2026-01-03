@@ -325,11 +325,11 @@ async function submitOrder() {
         const result = await response.json();
         
         if (result.success) {
-            showToast(result.order.message, 'success');
+            // 跳轉到訂單確認頁面，帶上訂單編號與資訊
             clearCart();
-            // 關閉 Modal
-            const modal = bootstrap.Modal.getInstance(document.getElementById('cart-modal'));
-            if (modal) modal.hide();
+            const orderId = encodeURIComponent(result.order.order_id || '');
+            const orderInfo = encodeURIComponent(JSON.stringify(result.order.info || {}));
+            window.location.href = `order_confirm.html?order_id=${orderId}&order_info=${orderInfo}`;
         } else {
             showToast('訂單送出失敗，請重試', 'error');
         }

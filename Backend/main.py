@@ -12,6 +12,7 @@ from typing import Optional
 import json
 import os
 import httpx
+import time
 from dotenv import load_dotenv
 
 # ============== 初始化 ==============
@@ -68,6 +69,11 @@ async def root():
 async def ar_page():
     """AR 體驗頁面"""
     return FileResponse("../Frontend/ar_view.html")
+
+@app.get("/order_confirm.html", response_class=HTMLResponse)
+async def order_confirm_page():
+    """訂單確認頁面"""
+    return FileResponse("../Frontend/order_confirm.html")
 
 # ---------- 菜單 API ----------
 
@@ -259,9 +265,19 @@ async def create_order(order: Order):
         else:
             raise HTTPException(status_code=400, detail=f"找不到餐點 ID: {item.menu_id}")
     
+    # 產生簡單訂單編號（可用時間戳記或亂數）
+    order_id = f"OD{int(time.time())}"
+    # info 欄位可帶主要資訊
+    info = {
+        "總金額": total,
+        "備註": order.customer_note or "",
+        "品項": ", ".join([f"{d['name']}x{d['quantity']}" for d in order_details])
+    }
     return {
         "success": True,
         "order": {
+            "order_id": order_id,
+            "info": info,
             "items": order_details,
             "total": total,
             "note": order.customer_note,
