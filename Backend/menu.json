@@ -101,6 +101,108 @@
         "calories": 400,
         "protein": 15
       }
+    },
+    {
+      "id": 7,
+      "name": "時蔬豬肉烏龍麵",
+      "name_jp": "野菜豚肉うどん",
+      "price": 155,
+      "description": "清爽湯頭搭配豐富時蔬與鮮嫩豬肉，營養均衡的美味選擇。",
+      "image": "/static/img/時蔬豬肉烏龍麵.jpg",
+      "model_3d": "/static/models/時蔬豬肉烏龍麵.glb",
+      "category": "湯烏龍麵",
+      "is_popular": false,
+      "spicy_level": 0,
+      "ai_prompt": "這道菜營養滿分！蔬菜的甜味融入湯裡，配上豬肉片，清爽又滿足。",
+      "nutrition": {
+        "calories": 460,
+        "protein": 18
+      }
+    },
+    {
+      "id": 8,
+      "name": "豚骨烏龍麵",
+      "name_jp": "豚骨うどん",
+      "price": 160,
+      "description": "濃郁熬製的豚骨白湯，口感溫潤醇厚，搭配叉燒與溏心蛋。",
+      "image": "/static/img/豚骨烏龍麵.jpg",
+      "model_3d": "/static/models/豚骨烏龍麵.glb",
+      "category": "湯烏龍麵",
+      "is_popular": true,
+      "spicy_level": 0,
+      "ai_prompt": "喜歡濃郁湯頭的客人必點！豚骨湯底熬煮多時，膠質豐富，喝完嘴巴會黏黏的喔。",
+      "nutrition": {
+        "calories": 520,
+        "protein": 22
+      }
+    },
+    {
+      "id": 9,
+      "name": "泰式豬肉烏龍麵",
+      "name_jp": "タイ風豚肉うどん",
+      "price": 165,
+      "description": "泰式酸辣湯頭配上嫩豬肉，椰奶香氣撲鼻，異國風情。",
+      "image": "/static/img/泰式豬肉烏龍麵.jpg",
+      "model_3d": "/static/models/泰式豬肉烏龍麵.glb",
+      "category": "湯烏龍麵",
+      "is_popular": true,
+      "spicy_level": 2,
+      "ai_prompt": "想嚐鮮的客人必試！泰式酸辣配上烏龍麵，創造出全新的味覺體驗。",
+      "nutrition": {
+        "calories": 490,
+        "protein": 21
+      }
+    },
+    {
+      "id": 10,
+      "name": "番茄雞肉烏龍麵",
+      "name_jp": "トマトチキンうどん",
+      "price": 160,
+      "description": "酸甜番茄湯底搭配鮮嫩雞肉，清爽開胃，女性顧客的最愛。",
+      "image": "/static/img/番茄雞肉烏龍麵.jpg",
+      "model_3d": "/static/models/番茄雞肉烏龍麵.glb",
+      "category": "湯烏龍麵",
+      "is_popular": true,
+      "spicy_level": 0,
+      "ai_prompt": "這道非常清爽！番茄的酸甜味很開胃，雞肉也很嫩。如果不喜歡太油膩的湯頭，這道很推薦。",
+      "nutrition": {
+        "calories": 430,
+        "protein": 20
+      }
+    },
+    {
+      "id": 11,
+      "name": "牛肉蛋拌烏龍麵",
+      "name_jp": "肉釜玉うどん",
+      "price": 180,
+      "description": "鮮嫩牛肉片加上溫泉蛋，拌入濃郁醬汁，滑順口感，肉香四溢。",
+      "image": "/static/img/牛肉蛋拌烏龍麵.jpg",
+      "model_3d": "/static/models/牛肉蛋拌烏龍麵.glb",
+      "category": "乾拌烏龍麵",
+      "is_popular": true,
+      "spicy_level": 0,
+      "ai_prompt": "肉食系的最愛！牛肉份量多，配上蛋液更加滑順。建議攪拌均勻後大口享用。",
+      "nutrition": {
+        "calories": 550,
+        "protein": 26
+      }
+    },
+    {
+      "id": 12,
+      "name": "湯烏龍麵",
+      "name_jp": "かけうどん",
+      "price": 90,
+      "description": "最純粹的美味，金黃高湯搭配Q彈烏龍麵，撒上蔥花與天婦羅花。",
+      "image": "/static/img/湯烏龍麵.jpg",
+      "model_3d": "/static/models/湯烏龍麵.glb",
+      "category": "湯烏龍麵",
+      "is_popular": false,
+      "spicy_level": 0,
+      "ai_prompt": "簡單就是美味！我們的湯頭是用昆布和柴魚精心熬煮的，喝一口就能感受到鮮甜。",
+      "nutrition": {
+        "calories": 320,
+        "protein": 8
+      }
     }
   ],
   "sides": [
@@ -143,6 +245,38 @@
       "description": "Q彈竹輪裹上麵衣油炸，口感豐富。",
       "image": "/static/img/炸竹輪.jpg",
       "model_3d": "/static/models/炸竹輪.glb"
+    },
+    {
+      "id": 106,
+      "name": "白身魚天炸白身魚",
+      "price": 40,
+      "description": "鮮嫩白身魚裹上麵衣油炸，外酥內軟，鮮味十足。",
+      "image": "/static/img/白身魚天炸白身魚.jpg",
+      "model_3d": "/static/models/白身魚天炸白身魚.glb"
+    },
+    {
+      "id": 107,
+      "name": "天炸地瓜",
+      "price": 25,
+      "description": "香甜的炸地瓜塊，健康又美味。",
+      "image": "/static/img/天炸地瓜.jpg",
+      "model_3d": "/static/models/天炸地瓜.glb"
+    },
+    {
+      "id": 108,
+      "name": "天炸青椒",
+      "price": 20,
+      "description": "酥脆的炸青椒，微辣開胃。",
+      "image": "/static/img/天炸青椒.jpg",
+      "model_3d": "/static/models/天炸青椒.glb"
+    },
+    {
+      "id": 109,
+      "name": "名古屋炸雞翅",
+      "price": 55,
+      "description": "酥脆外皮裹上特製醬汁，鹹甜適中，吮指回味。",
+      "image": "/static/img/名古屋炸雞翅.jpg",
+      "model_3d": "/static/models/名古屋炸雞翅.glb"
     }
   ],
   "store_info": {
