@@ -91,7 +91,7 @@ function createMenuCard(item) {
             </div>
             
             <button class="add-to-cart-btn" onclick="addToCart(${item.id}, event)">
-                🛒 加入點餐
+                加入點餐
             </button>
         </div>
     `;
@@ -116,7 +116,7 @@ function renderSidesSection(sides) {
                 <span class="price">NT$${item.price}</span>
             </div>
             <button class="add-to-cart-btn" onclick="addToCart(${item.id}, event)">
-                ➕ 加點
+                加點
             </button>
         </div>
     `).join('');
