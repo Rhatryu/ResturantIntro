@@ -6,6 +6,7 @@
 // ============== 全域變數 ==============
 let cart = [];
 let menuData = [];
+let sidesData = [];
 const API_BASE = 'http://localhost:8000'; // 後端 API 基礎路徑
 
 // ============== 頁面初始化 ==============
@@ -27,8 +28,9 @@ async function loadMenu() {
         
         if (result.success) {
             menuData = result.data.menu;
+            sidesData = result.data.sides || [];
             renderMenuGrid(menuData);
-            renderSidesSection(result.data.sides);
+            renderSidesSection(sidesData);
         } else {
             showError('無法載入菜單，請重新整理頁面');
         }
@@ -91,7 +93,7 @@ function createMenuCard(item) {
             </div>
             
             <button class="add-to-cart-btn" onclick="addToCart(${item.id}, event)">
-                🛒 加入點餐
+                加入點餐
             </button>
         </div>
     `;
@@ -106,9 +108,24 @@ function renderSidesSection(sides) {
     
     sidesGrid.innerHTML = sides.map(item => `
         <div class="menu-card side-card" data-id="${item.id}">
-            <div class="card-img-container" style="height: 120px;">
+            <div class="card-img-container">
                 <img src="${item.image}" alt="${item.name}"
                      onerror="this.src='/static/img/placeholder.jpg'">
+
+                <!-- Hover 時顯示的 QR Overlay -->
+                ${(() => {
+                    const arUrl = `${window.location.origin}/ar?id=${item.id}`;
+                    const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(arUrl)}`;
+                    return `
+                        <div class="qr-overlay">
+                            <img src="${qrImageUrl}" alt="AR QR Code">
+                            <p>📱 掃描體驗 AR</p>
+                            <a href="${arUrl}" class="ar-btn" target="_blank">
+                                🥽 直接進入 AR
+                            </a>
+                        </div>
+                    `;
+                })()}
             </div>
             <div class="card-content">
                 <h3>${item.name}</h3>
@@ -116,7 +133,7 @@ function renderSidesSection(sides) {
                 <span class="price">NT$${item.price}</span>
             </div>
             <button class="add-to-cart-btn" onclick="addToCart(${item.id}, event)">
-                ➕ 加點
+                加點
             </button>
         </div>
     `).join('');
@@ -131,7 +148,7 @@ function addToCart(itemId, event) {
     if (event) event.stopPropagation();
     
     // 從 menuData 或 sides 中尋找商品
-    const allItems = [...menuData, ...(window.sidesData || [])];
+    const allItems = [...menuData, ...sidesData];
     const item = allItems.find(i => i.id === itemId);
     
     if (!item) {
