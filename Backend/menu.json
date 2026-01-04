@@ -58,7 +58,7 @@
       "price": 170,
       "description": "鮮嫩牛肉片鋪滿碗面，肉汁精華融入湯底，每一口都鮮美。",
       "image": "/static/img/牛肉烏龍麵.jpg",
-      "model_3d": null,
+      "model_3d": "/static/models/牛肉烏龍麵.glb",
       "category": "湯烏龍麵",
       "is_popular": false,
       "spicy_level": 0,
@@ -75,7 +75,7 @@
       "price": 100,
       "description": "直接從釜鍋撈起，不經冷水沖洗，保留麵條最原始的小麥香氣與滑順口感。",
       "image": "/static/img/釜揚烏龍麵.jpg",
-      "model_3d": null,
+      "model_3d": "/static/models/釜揚烏龍麵.glb",
       "category": "乾拌烏龍麵",
       "is_popular": false,
       "spicy_level": 0,
@@ -92,7 +92,7 @@
       "price": 120,
       "description": "濃郁的醬底搭配滑嫩溫泉蛋，拌開後蛋液包裹麵條，口感極佳。",
       "image": "/static/img/溫玉濃湯烏龍麵.jpg",
-      "model_3d": null,
+      "model_3d": "/static/models/溫玉濃湯烏龍麵.glb",
       "category": "乾拌烏龍麵",
       "is_popular": false,
       "spicy_level": 0,
@@ -109,35 +109,40 @@
       "name": "海老天炸蝦",
       "price": 60,
       "description": "金黃酥脆的麵衣包裹著鮮甜蝦肉，經典必點炸物。",
-      "image": "/static/img/海老天炸蝦.jpg"
+      "image": "/static/img/海老天炸蝦.jpg",
+      "model_3d": "/static/models/海老天炸蝦.glb"
     },
     {
       "id": 102,
       "name": "炸蔬菜",
       "price": 40,
       "description": "洋蔥、紅蘿蔔等蔬菜絲炸成的蔬菜球，鮮甜酥脆。",
-      "image": "/static/img/炸蔬菜.jpg"
+      "image": "/static/img/炸蔬菜.jpg",
+      "model_3d": "/static/models/炸蔬菜.glb"
     },
     {
       "id": 103,
       "name": "天炸雞",
       "price": 50,
       "description": "日式唐揚炸雞，外皮酥脆多汁。",
-      "image": "/static/img/天炸雞.jpg"
+      "image": "/static/img/天炸雞.jpg",
+      "model_3d": "/static/models/天炸雞.glb"
     },
     {
       "id": 104,
       "name": "可樂餅",
       "price": 35,
       "description": "綿密馬鈴薯泥內餡，外酥內軟。",
-      "image": "/static/img/可樂餅.jpg"
+      "image": "/static/img/可樂餅.jpg",
+      "model_3d": "/static/models/可樂餅.glb"
     },
     {
       "id": 105,
       "name": "炸竹輪",
       "price": 30,
       "description": "Q彈竹輪裹上麵衣油炸，口感豐富。",
-      "image": "/static/img/炸竹輪.jpg"
+      "image": "/static/img/炸竹輪.jpg",
+      "model_3d": "/static/models/炸竹輪.glb"
     }
   ],
   "store_info": {

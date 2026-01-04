@@ -22,6 +22,43 @@
             font-family: 'Noto Sans TC', sans-serif;
             overflow: hidden;
         }
+
+        /* 桌機專用調整 */
+        @media (min-width: 900px) {
+            .info-card {
+                left: unset;
+                right: 40px;
+                bottom: 40px;
+                width: 400px;
+                max-width: 90vw;
+                max-height: 60vh;
+                border-radius: 24px;
+                padding: 32px 28px 24px 28px;
+                box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+                margin-left: auto;
+            }
+            .bottom-actions {
+                left: unset;
+                right: 40px;
+                bottom: 40px;
+                width: 400px;
+                flex-direction: row;
+                gap: 18px;
+                z-index: 1001;
+                margin-left: auto;
+            }
+            .top-bar {
+                padding: 18px 40px;
+                font-size: 1.1rem;
+            }
+            .ar-hint {
+                padding: 40px 60px;
+                font-size: 1.2rem;
+            }
+            .chat-input, .chat-send-btn {
+                font-size: 1.1rem;
+            }
+        }
         
         /* 頂部資訊列 */
         .top-bar {
@@ -51,6 +88,7 @@
             border-radius: 20px;
             font-size: 0.9rem;
             text-decoration: none;
+            margin-right: 10px;
         }
         
         /* 餐點資訊卡 */
@@ -64,8 +102,9 @@
             padding: 20px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             z-index: 1000;
-            max-height: 40vh;
+            max-height: 60vh;
             overflow-y: auto;
+            transition: all 0.2s;
         }
         
         .info-card h2 {
@@ -156,6 +195,7 @@
             display: flex;
             gap: 15px;
             z-index: 1000;
+            transition: all 0.2s;
         }
         
         .action-btn {
@@ -268,18 +308,22 @@
         <img src="https://raw.githubusercontent.com/AR-js-org/AR.js/master/data/images/hiro.png" alt="Hiro Marker">
         <p>請將手機對準 Hiro 標記<br>即可看到 3D 模型</p>
         <p style="font-size: 0.9rem; color: #ccc;">沒有標記？點擊下方按鈕下載</p>
-        <a href="https://raw.githubusercontent.com/AR-js-org/AR.js/master/data/images/hiro.png" 
+        <a href="https://raw.githubusercontent.com/AR-js-org/AR.js/master/data/images/hiro.png" target="_blank"
            download="hiro-marker.png"
            style="color: #ffb300; display: block; margin-bottom: 15px;">
             📥 下載 Hiro 標記
         </a>
         <button class="close-hint" onclick="closeHint()">開始體驗</button>
     </div>
+    <!-- 顯示 AR 提示畫面按鈕（預設隱藏，開始體驗後顯示） -->
+    <button id="show-ar-hint-btn" style="display:none;position:fixed;top:80px;right:25px;z-index:1200;background:#667eea;color:white;border:none;padding:10px 20px;border-radius:20px;font-size:1rem;box-shadow:0 2px 8px rgba(0,0,0,0.15);cursor:pointer;">顯示 AR 提示</button>
 
     <!-- 頂部資訊列 -->
     <div class="top-bar">
-        <h1 id="dish-name">載入中...</h1>
-        <a href="/" class="back-btn">← 返回菜單</a>
+        <div style="width: 100%; display: flex; align-items: center; justify-content: left;">
+            <a href="/" class="back-btn">← 返回菜單</a>
+            <h1 id="dish-name">載入中...</h1>
+        </div>
     </div>
 
     <!-- A-Frame AR 場景 -->
@@ -352,10 +396,10 @@
     <!-- 底部按鈕 -->
     <div class="bottom-actions">
         <button class="action-btn speak-btn" id="speak-btn" onclick="speakAIMessage()">
-            🔊 語音朗讀
+            語音朗讀
         </button>
         <button class="action-btn order-btn" id="order-btn" onclick="addToOrder()">
-            🛒 加入點餐
+            加入點餐
         </button>
     </div>
 
@@ -508,9 +552,9 @@
                 
                 // 更新按鈕狀態
                 const speakBtn = document.getElementById('speak-btn');
-                speakBtn.textContent = '🔊 朗讀中...';
+                speakBtn.textContent = '朗讀中...';
                 utterance.onend = () => {
-                    speakBtn.textContent = '🔊 語音朗讀';
+                    speakBtn.textContent = '語音朗讀';
                 };
             } else {
                 alert('您的瀏覽器不支援語音功能');
@@ -542,11 +586,11 @@
             
             // 回饋
             const orderBtn = document.getElementById('order-btn');
-            orderBtn.textContent = '✅ 已加入！';
+            orderBtn.textContent = '已加入！';
             orderBtn.style.background = '#4caf50';
             
             setTimeout(() => {
-                orderBtn.textContent = '🛒 加入點餐';
+                orderBtn.textContent = '加入點餐';
                 orderBtn.style.background = '#d32f2f';
             }, 2000);
             
@@ -561,6 +605,14 @@
         // ============== 工具函數 ==============
         function closeHint() {
             document.getElementById('ar-hint').style.display = 'none';
+            // 顯示「顯示 AR 提示」按鈕
+            document.getElementById('show-ar-hint-btn').style.display = 'block';
+        }
+
+        // 顯示 AR 提示畫面
+        function showArHint() {
+            document.getElementById('ar-hint').style.display = 'block';
+            document.getElementById('show-ar-hint-btn').style.display = 'none';
         }
 
         function showError(message) {
@@ -583,6 +635,11 @@
         // 綁定顯示按鈕事件
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('show-info-btn').addEventListener('click', showInfoCard);
+        });
+
+        // 綁定顯示 AR 提示畫面按鈕事件
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('show-ar-hint-btn').addEventListener('click', showArHint);
         });
 
         // 語音合成 Voices 需要等待載入
