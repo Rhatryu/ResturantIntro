@@ -90,7 +90,7 @@
       "name": "溫玉濃湯烏龍麵",
       "name_jp": "温玉ぶっかけうどん",
       "price": 120,
-      "description": "濃郁的醬底搭配滑嫩溫泉蛋，拌開後蛋液包裹麵條，口感極佳。",
+      "description": "濃郁醬油高湯搭配滑嫩溫泉蛋，蛋液拌勻後包裹麵條，滑順濃郁。",
       "image": "/static/img/溫玉濃湯烏龍麵.jpg",
       "model_3d": "/static/models/溫玉濃湯烏龍麵.glb",
       "category": "乾拌烏龍麵",
@@ -124,7 +124,7 @@
       "name": "豚骨烏龍麵",
       "name_jp": "豚骨うどん",
       "price": 160,
-      "description": "濃郁熬製的豚骨白湯，口感溫潤醇厚，搭配叉燒與溏心蛋。",
+      "description": "豚骨湯底濃郁醇厚，搭配Q彈烏龍麵，經典日式風味。",
       "image": "/static/img/豚骨烏龍麵.jpg",
       "model_3d": "/static/models/豚骨烏龍麵.glb",
       "category": "湯烏龍麵",
@@ -141,7 +141,7 @@
       "name": "泰式豬肉烏龍麵",
       "name_jp": "タイ風豚肉うどん",
       "price": 165,
-      "description": "泰式酸辣湯頭配上嫩豬肉，椰奶香氣撲鼻，異國風情。",
+      "description": "泰式酸辣湯頭與豬肉片，帶有椰奶香氣，微辣開胃。",
       "image": "/static/img/泰式豬肉烏龍麵.jpg",
       "model_3d": "/static/models/泰式豬肉烏龍麵.glb",
       "category": "湯烏龍麵",
@@ -158,7 +158,7 @@
       "name": "番茄雞肉烏龍麵",
       "name_jp": "トマトチキンうどん",
       "price": 160,
-      "description": "酸甜番茄湯底搭配鮮嫩雞肉，清爽開胃，女性顧客的最愛。",
+      "description": "番茄湯底酸甜開胃，搭配雞肉，口感清爽。",
       "image": "/static/img/番茄雞肉烏龍麵.jpg",
       "model_3d": "/static/models/番茄雞肉烏龍麵.glb",
       "category": "湯烏龍麵",
@@ -192,7 +192,7 @@
       "name": "湯烏龍麵",
       "name_jp": "かけうどん",
       "price": 90,
-      "description": "最純粹的美味，金黃高湯搭配Q彈烏龍麵，撒上蔥花與天婦羅花。",
+      "description": "昆布柴魚高湯搭配Q彈烏龍麵，簡單卻經典的日式美味。",
       "image": "/static/img/湯烏龍麵.jpg",
       "model_3d": "/static/models/湯烏龍麵.glb",
       "category": "湯烏龍麵",
@@ -211,6 +211,7 @@
       "name": "海老天炸蝦",
       "price": 60,
       "description": "金黃酥脆的麵衣包裹著鮮甜蝦肉，經典必點炸物。",
+      "ai_prompt": "這是最受歡迎的天婦羅！外酥內嫩，蝦肉鮮甜，搭配烏龍麵或單吃都很棒。"
       "image": "/static/img/海老天炸蝦.jpg",
       "model_3d": "/static/models/海老天炸蝦.glb"
     },
@@ -219,6 +220,7 @@
       "name": "炸蔬菜",
       "price": 40,
       "description": "洋蔥、紅蘿蔔等蔬菜絲炸成的蔬菜球，鮮甜酥脆。",
+      "ai_prompt": "蔬菜炸物很受小朋友喜愛，外皮酥脆，裡面蔬菜香甜多汁。"
       "image": "/static/img/炸蔬菜.jpg",
       "model_3d": "/static/models/炸蔬菜.glb"
     },
@@ -226,7 +228,8 @@
       "id": 103,
       "name": "天炸雞",
       "price": 50,
-      "description": "日式唐揚炸雞，外皮酥脆多汁。",
+      "description": "雞肉裹上天婦羅麵衣油炸，外酥內嫩，日式風味。",
+      "ai_prompt": "天炸雞是日式天婦羅風格，外皮酥脆、雞肉鮮嫩，適合搭配烏龍麵或單吃。"
       "image": "/static/img/天炸雞.jpg",
       "model_3d": "/static/models/天炸雞.glb"
     },
@@ -235,6 +238,7 @@
       "name": "可樂餅",
       "price": 35,
       "description": "綿密馬鈴薯泥內餡，外酥內軟。",
+      "ai_prompt": "可樂餅外皮酥脆，內餡馬鈴薯香甜，適合大人小孩。"
       "image": "/static/img/可樂餅.jpg",
       "model_3d": "/static/models/可樂餅.glb"
     },
@@ -243,6 +247,7 @@
       "name": "炸竹輪",
       "price": 30,
       "description": "Q彈竹輪裹上麵衣油炸，口感豐富。",
+      "ai_prompt": "竹輪炸物Q彈有嚼勁，外層酥脆，咬下去有魚漿香氣。"
       "image": "/static/img/炸竹輪.jpg",
       "model_3d": "/static/models/炸竹輪.glb"
     },
@@ -251,6 +256,7 @@
       "name": "白身魚天炸白身魚",
       "price": 40,
       "description": "鮮嫩白身魚裹上麵衣油炸，外酥內軟，鮮味十足。",
+      "ai_prompt": "白身魚天婦羅外酥內嫩，魚肉細緻，適合搭配各種主餐。"
       "image": "/static/img/白身魚天炸白身魚.jpg",
       "model_3d": "/static/models/白身魚天炸白身魚.glb"
     },
@@ -259,6 +265,7 @@
       "name": "天炸地瓜",
       "price": 25,
       "description": "香甜的炸地瓜塊，健康又美味。",
+      "ai_prompt": "地瓜炸物甜度高，外皮酥脆，內裡鬆軟，是健康又美味的選擇。"
       "image": "/static/img/天炸地瓜.jpg",
       "model_3d": "/static/models/天炸地瓜.glb"
     },
@@ -267,6 +274,7 @@
       "name": "天炸青椒",
       "price": 20,
       "description": "酥脆的炸青椒，微辣開胃。",
+      "ai_prompt": "青椒炸物微辣，酥脆爽口，適合喜歡重口味的客人。"
       "image": "/static/img/天炸青椒.jpg",
       "model_3d": "/static/models/天炸青椒.glb"
     },
@@ -275,6 +283,7 @@
       "name": "名古屋炸雞翅",
       "price": 55,
       "description": "酥脆外皮裹上特製醬汁，鹹甜適中，吮指回味。",
+      "ai_prompt": "名古屋炸雞翅鹹甜醬汁入味，外皮酥脆，吃完會吮指回味。"
       "image": "/static/img/名古屋炸雞翅.jpg",
       "model_3d": "/static/models/名古屋炸雞翅.glb"
     }
