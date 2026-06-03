@@ -1,5 +1,5 @@
 /**
- * 丸龜製麵 - 主要 JavaScript
+ * 菜菜製麵 - 主要 JavaScript
  * 購物車邏輯、API 串接、QR 動態生成
  */
 

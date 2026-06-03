@@ -1,5 +1,5 @@
 """
-丸龜製麵：AI 虛擬導覽與沉浸式點餐系統
+菜菜製麵：AI 虛擬導覽與沉浸式點餐系統
 FastAPI 後端核心
 """
 
@@ -18,7 +18,7 @@ from dotenv import load_dotenv
 # ============== 初始化 ==============
 load_dotenv()
 app = FastAPI(
-    title="丸龜製麵 API",
+    title="菜菜製麵 API",
     description="AI 虛擬導覽與沉浸式點餐系統後端",
     version="1.0.0"
 )
@@ -292,7 +292,7 @@ async def health_check():
     """API 健康檢查"""
     return {
         "status": "healthy",
-        "message": "丸龜製麵 API 運作正常！🍜"
+        "message": "菜菜製麵 API 運作正常！🍜"
     }
 
 # ============== 啟動設定 ==============
