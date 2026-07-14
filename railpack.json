@@ -1,12 +1,4 @@
 {
   "$schema": "https://schema.railpack.com",
-  "provider": "python",
-  "steps": {
-    "install": {
-      "commands": [
-        "python -m venv /opt/venv",
-        "/opt/venv/bin/pip install -r Backend/requirements.txt"
-      ]
-    }
-  }
+  "provider": "python"
 }
