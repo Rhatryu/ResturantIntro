@@ -31,8 +31,12 @@ Frontend/
 前端透過 `fetch()` 呼叫後端 API：
 
 ```javascript
-const API_BASE = 'http://localhost:8000';
-fetch(`${API_BASE}/api/menu`)
+window.__APP_CONFIG__ = {
+    apiBase: 'https://your-backend.example.com',
+    appBase: 'https://your-frontend.example.com'
+};
+
+// main.js 會自動讀取設定；未設定時預設使用目前網站同源位址
 ```
 
 後端會：

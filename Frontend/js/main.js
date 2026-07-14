@@ -7,7 +7,41 @@
 let cart = [];
 let menuData = [];
 let sidesData = [];
-const API_BASE = 'http://localhost:8000'; // 後端 API 基礎路徑
+
+function getApiBase() {
+    if (window.__APP_CONFIG__ && window.__APP_CONFIG__.apiBase) {
+        return window.__APP_CONFIG__.apiBase.replace(/\/$/, '');
+    }
+
+    if (window.__API_BASE__) {
+        return String(window.__API_BASE__).replace(/\/$/, '');
+    }
+
+    if (window.location.protocol === 'file:') {
+        return 'http://localhost:8000';
+    }
+
+    return window.location.origin.replace(/\/$/, '');
+}
+
+function getAppBase() {
+    if (window.__APP_CONFIG__ && window.__APP_CONFIG__.appBase) {
+        return window.__APP_CONFIG__.appBase.replace(/\/$/, '');
+    }
+
+    if (window.__APP_BASE__) {
+        return String(window.__APP_BASE__).replace(/\/$/, '');
+    }
+
+    if (window.location.protocol === 'file:') {
+        return 'http://localhost:8000';
+    }
+
+    return window.location.origin.replace(/\/$/, '');
+}
+
+const API_BASE = getApiBase();
+const APP_BASE = getAppBase();
 
 // ============== 頁面初始化 ==============
 document.addEventListener('DOMContentLoaded', () => {
@@ -62,7 +96,7 @@ function createMenuCard(item) {
     const popularBadge = item.is_popular ? '<span class="popular-badge">🔥 人氣</span>' : '';
     
     // 動態 QR Code URL (使用免費 QR API)
-    const arUrl = `${window.location.origin}/ar?id=${item.id}`;
+    const arUrl = `${APP_BASE}/ar?id=${item.id}`;
     const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(arUrl)}`;
     
     return `
@@ -114,7 +148,7 @@ function renderSidesSection(sides) {
 
                 <!-- Hover 時顯示的 QR Overlay -->
                 ${(() => {
-                    const arUrl = `${window.location.origin}/ar?id=${item.id}`;
+                    const arUrl = `${APP_BASE}/ar?id=${item.id}`;
                     const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(arUrl)}`;
                     return `
                         <div class="qr-overlay">
