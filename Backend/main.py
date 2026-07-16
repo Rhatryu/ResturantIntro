@@ -208,7 +208,7 @@ async def chat_with_ai(chat: ChatMessage):
                     "Content-Type": "application/json",
                 },
                 json={
-                    "model": "meta-llama/llama-3.3-70b-instruct:free",
+                    "model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
                     "messages": [
                         {"role": "system", "content": system_prompt},
                         {"role": "user", "content": chat.message}
