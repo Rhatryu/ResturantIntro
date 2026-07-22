@@ -53,6 +53,23 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 - AR 體驗: http://localhost:8000/ar?id=1
 - API 文件: http://localhost:8000/docs
 
+## Railway 部署
+
+這個專案可以用單一 Railway 服務同時提供前端與後端。部署時直接使用 repo 根目錄，Railway 會讀取 [railway.toml](railway.toml) 裡的設定。
+
+流程：
+
+1. 把這個 Git repo 推到 GitHub。
+2. 在 Railway 建立新專案並連結該 repo。
+3. 上傳環境變數 `OPENROUTER_API_KEY`。
+4. Railway 會執行 `uvicorn Backend.main:app --host 0.0.0.0 --port $PORT`。
+5. 部署完成後，首頁、AR 頁面、`/api/*` 都會由同一個服務提供。
+
+補充：
+
+- 前端不需要另外放 GitHub Pages。
+- 若要從外部網域注入設定，可在頁面載入前定義 `window.__APP_CONFIG__`，但單一 Railway 服務下通常不需要。
+
 ## AR 使用說明
 
 1. 用電腦瀏覽主頁，Hover 餐點卡片看到 QR Code

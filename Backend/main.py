@@ -11,12 +11,19 @@ from pydantic import BaseModel
 from typing import Optional
 import json
 import os
+from pathlib import Path
 import httpx
 import time
 from dotenv import load_dotenv
 
 # ============== 初始化 ==============
 load_dotenv()
+BASE_DIR = Path(__file__).resolve().parent
+FRONTEND_DIR = BASE_DIR.parent / "Frontend"
+STATIC_DIR = BASE_DIR / "static"
+MENU_PATH = BASE_DIR / "menu.json"
+SYSTEM_PROMPT_PATH = BASE_DIR / "system_prompt.txt"
+
 app = FastAPI(
     title="菜菜製麵 API",
     description="AI 虛擬導覽與沉浸式點餐系統後端",
@@ -33,16 +40,15 @@ app.add_middleware(
 )
 
 # 掛載靜態資源 (圖片、模型等)
-app.mount("/static", StaticFiles(directory="./static"), name="static")
+app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
 # 掛載前端資源 (HTML, CSS, JS)
-app.mount("/assets", StaticFiles(directory="../Frontend"), name="frontend")
+app.mount("/assets", StaticFiles(directory=str(FRONTEND_DIR)), name="frontend")
 
 # ============== 資料載入 ==============
 def load_menu():
     """載入菜單資料"""
-    menu_path = "./menu.json"
-    with open(menu_path, "r", encoding="utf-8") as f:
+    with open(MENU_PATH, "r", encoding="utf-8") as f:
         return json.load(f)
 
 # ============== 資料模型 ==============
@@ -63,17 +69,17 @@ class Order(BaseModel):
 @app.get("/", response_class=HTMLResponse)
 async def root():
     """首頁 - 返回主頁面"""
-    return FileResponse("../Frontend/index.html")
+    return FileResponse(FRONTEND_DIR / "index.html")
 
 @app.get("/ar")
 async def ar_page():
     """AR 體驗頁面"""
-    return FileResponse("../Frontend/ar_view.html")
+    return FileResponse(FRONTEND_DIR / "ar_view.html")
 
 @app.get("/order_confirm.html", response_class=HTMLResponse)
 async def order_confirm_page():
     """訂單確認頁面"""
-    return FileResponse("../Frontend/order_confirm.html")
+    return FileResponse(FRONTEND_DIR / "order_confirm.html")
 
 # ---------- 菜單 API ----------
 
@@ -156,7 +162,7 @@ async def chat_with_ai(chat: ChatMessage):
     store_info = menu_data["store_info"]
     
     # 讀取 System Prompt 模板
-    with open("./system_prompt.txt", "r", encoding="utf-8") as f:
+    with open(SYSTEM_PROMPT_PATH, "r", encoding="utf-8") as f:
         system_prompt_template = f.read()
     
     # 替換店舖資訊
@@ -202,7 +208,7 @@ async def chat_with_ai(chat: ChatMessage):
                     "Content-Type": "application/json",
                 },
                 json={
-                    "model": "meta-llama/llama-3.3-70b-instruct:free",
+                    "model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
                     "messages": [
                         {"role": "system", "content": system_prompt},
                         {"role": "user", "content": chat.message}
