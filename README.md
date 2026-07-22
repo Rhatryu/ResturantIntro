@@ -47,6 +47,11 @@ OPENROUTER_API_KEY=your-api-key-here
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
+或透過Docker啟動：
+```bash
+docker compose up -d --build
+```
+
 ### 4. 訪問網站
 
 - 主頁: http://localhost:8000
